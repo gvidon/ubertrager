@@ -11,7 +11,7 @@ exports.Ubertrager = function(options) {
 	/*
 	Options:
 		"channels" - dictionary with channels descriptions
-		"direct"   - direct exchange name
+		"topic"    - topic exchange name
 		"fanout"   - fanout exchange name
 	*/
 
@@ -31,7 +31,7 @@ exports.Ubertrager = function(options) {
 			amqp.addListener('ready', function () {
 				console.log('Connected to AMQP server')
 
-				thiz.logExchange = thiz.options.direct
+				thiz.logExchange = thiz.options.topic
 				thiz.webExchange = thiz.options.fanout
 
 				thiz.resetChannels(thiz.options.channels)
@@ -76,14 +76,14 @@ exports.Ubertrager = function(options) {
 			}
 		},
 
-		// logExchange variable is historicaly for direct exchange
+		// logExchange variable is historicaly for topic exchange
 		'logExchange': {
 			configurable: false,
 
 			get: function() { return this.logExchangeValue },
 
 			set: function(name) {
-				this.logExchangeValue = amqp.exchange(name, options={ 'type': 'direct', 'durable': true, 'autoDelete': false })
+				this.logExchangeValue = amqp.exchange(name, options={ 'type': 'topic', 'durable': true, 'autoDelete': false })
 			}
 		},
 
@@ -169,7 +169,7 @@ exports.Ubertrager = function(options) {
 													return false
 												}
 
-												// Emit data into direct and fanout exchanges
+												// Emit data into topic and fanout exchanges
 												results.length ? thiz.publish(channel.name, results) : false
 											}
 										)
