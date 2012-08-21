@@ -168,9 +168,9 @@ exports.Ubertrager = function(options) {
 													console.log(channel.name + ': filtering error: ' + err)
 													return false
 												}
-
+												
 												// Emit data into topic and fanout exchanges
-												results.length ? thiz.publish(channel.name, results) : false
+												results.length ? thiz.publish(channel.route, results) : false
 											}
 										)
 									});
