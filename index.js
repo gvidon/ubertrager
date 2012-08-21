@@ -21,6 +21,8 @@ exports.Ubertrager = function(options) {
 
 		// Publish object in queue
 		publish: function(route, object) {
+			console.log('Publishing ' + object)
+
 			this.webExchange.publish(route, JSON.stringify(object), options={'headers': { 'name': route }})
 			this.logExchange.publish(route, JSON.stringify(object))
 		},
