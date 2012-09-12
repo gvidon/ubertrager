@@ -83,7 +83,7 @@ exports.Ubertrager = function(options) {
 			get: function() { return this.logExchangeValue },
 
 			set: function(name) {
-				this.logExchangeValue = amqp.exchange(name, options={ 'type': 'topic', 'durable': true, 'autoDelete': false })
+				this.logExchangeValue = amqp.exchange(name, options={ 'type': 'topic' })
 			}
 		},
 
